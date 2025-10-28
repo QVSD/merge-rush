@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GameConfig" load_steps=3 format=3 uid="uid://d2vco3ibd4h40"]
+
+[ext_resource type="Resource" uid="uid://cmnj7v23jrl68" path="res://config/bonus_config.tres" id="1_2yikq"]
+[ext_resource type="Script" uid="uid://djk6hktyn26lt" path="res://scripts/game_config.gd" id="1_l8lsh"]
+
+[resource]
+script = ExtResource("1_l8lsh")
+playerLife = 3
+lanes = 1
+max_lanes = 6
+difficulty = 10
+maximum_difficulty = 100
+difficulty_step_increase = 5
+enemy_type_options = Array[int]([1])
+difficulty_step_time = 15.0
+enemy_spawn_interval = 1.0
+fastest_enemy_spawn_interval = 0.1
+spawn_interval_decrement = 0.1
+bonus_spawn_chance = 0.1
+bonus_config = ExtResource("1_2yikq")
+metadata/_custom_type_script = "uid://djk6hktyn26lt"

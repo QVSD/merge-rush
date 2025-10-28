@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BonusConfig" load_steps=2 format=3 uid="uid://cmnj7v23jrl68"]
+
+[ext_resource type="Script" uid="uid://dfgplunv0vy60" path="res://scripts/bonus_config.gd" id="1_4lonb"]
+
+[resource]
+script = ExtResource("1_4lonb")
+spawn_interval = 10.0
+bonus_type_options = Array[int]([1])
+unlocks = {
+50: 2,
+150: 3
+}
+metadata/_custom_type_script = "uid://dfgplunv0vy60"

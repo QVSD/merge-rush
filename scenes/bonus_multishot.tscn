@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqw1randomdkm"]
+
+[ext_resource type="Script" uid="uid://ch36jyfasptjt" path="res://scripts/bonus_multishot.gd" id="1_0uwa3"]
+[ext_resource type="Texture2D" uid="uid://6bbkjewcobxt" path="res://images/multishot.png" id="2_srmr2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3plfg"]
+radius = 30.0666
+
+[node name="BonusMultishot" type="Area2D" groups=["bonus"]]
+script = ExtResource("1_0uwa3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["bonus"]]
+texture_filter = 1
+position = Vector2(23, 16.5)
+scale = Vector2(2.4375, 2.03125)
+texture = ExtResource("2_srmr2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(21, 14)
+shape = SubResource("CircleShape2D_3plfg")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
