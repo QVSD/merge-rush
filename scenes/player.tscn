@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://dem22mibj6rep"]
+[gd_scene load_steps=17 format=3 uid="uid://dem22mibj6rep"]
 
 [ext_resource type="Texture2D" uid="uid://13im2tuqhrgt" path="res://images/Idle (32x32).png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bjk1okbuhxu16" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://vifqmo1qqy2w" path="res://scenes/bullet.tscn" id="2_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_3vyb7")
@@ -106,7 +105,6 @@ size = Vector2(1080, 0)
 [node name="Player" type="Area2D" parent="." groups=["player"]]
 position = Vector2(548, 1820)
 script = ExtResource("1_g2els")
-bulletScene = ExtResource("2_qhqgy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 texture_filter = 1
@@ -125,10 +123,11 @@ wait_time = 0.5
 autostart = true
 
 [node name="HealthLimit" type="Area2D" parent="."]
-position = Vector2(540, 1766)
+position = Vector2(539, 1900)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HealthLimit"]
 shape = SubResource("RectangleShape2D_3vyb7")
 
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
 [connection signal="timeout" from="Player/ShootTimer" to="Player" method="_on_shoot_timer_timeout"]
 [connection signal="area_entered" from="HealthLimit" to="Player" method="_on_health_limit_area_entered"]

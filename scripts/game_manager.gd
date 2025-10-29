@@ -2,7 +2,7 @@ class_name GameManager
 extends Node
 
 @export var config: GameConfig
-@export var enemy_factory: EnemyFactory
+@export var obstacle_factory: ObstacleFactory
 @export var player_scene: PackedScene
 @export var bonus_factory: BonusFactory
 var player
@@ -35,7 +35,7 @@ func _ready() -> void:
 	bonus_timer.start()
 
 func _on_enemy_spawn_timer_timeout() -> void:
-	self.enemy_factory.spawn_enemy(self.config.lanes, 
+	self.obstacle_factory.spawn_obstacle(self.config.lanes, 
 			self.config.enemy_type_options[randi() % self.config.enemy_type_options.size()])
 
 # Raises difficulty of the game and updates the timers.

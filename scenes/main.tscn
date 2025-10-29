@@ -4,16 +4,16 @@
 [ext_resource type="Script" uid="uid://dnhpwwttdnvyr" path="res://scripts/game_manager.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dem22mibj6rep" path="res://scenes/player.tscn" id="2_0wfyh"]
 [ext_resource type="Resource" uid="uid://d2vco3ibd4h40" path="res://config/game_config.tres" id="2_tbgi4"]
-[ext_resource type="Script" uid="uid://cv5dfqo8lhh3p" path="res://scripts/enemy_factory.gd" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://c1b6f80j2r502" path="res://scenes/enemy1.tscn" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://v0s031c0pdo3" path="res://scenes/enemy2_big.tscn" id="7_tipki"]
-[ext_resource type="PackedScene" uid="uid://dwagkb6yivb6l" path="res://scenes/enemy3_fast.tscn" id="8_85g3d"]
+[ext_resource type="Script" uid="uid://cv5dfqo8lhh3p" path="res://scripts/_factory.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://c1b6f80j2r502" path="res://scenes/obstacle1.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://v0s031c0pdo3" path="res://scenes/obstacle2_big.tscn" id="7_85g3d"]
+[ext_resource type="PackedScene" uid="uid://dwagkb6yivb6l" path="res://scenes/obstacle3_fast.tscn" id="8_choun"]
 [ext_resource type="Script" uid="uid://ieu44be13wcm" path="res://scripts/bonus_factory.gd" id="9_85g3d"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("enemy_factory", "bonus_factory")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("obstacle_factory", "bonus_factory")]
 script = ExtResource("1_sugp2")
 config = ExtResource("2_tbgi4")
-enemy_factory = NodePath("EnemyFactory")
+obstacle_factory = NodePath("ObstacleFactory")
 player_scene = ExtResource("2_0wfyh")
 bonus_factory = NodePath("BonusFactory")
 
@@ -24,11 +24,11 @@ autostart = true
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="EnemyFactory" type="Node" parent="."]
+[node name="ObstacleFactory" type="Node" parent="."]
 script = ExtResource("5_tbgi4")
-enemy_scene_1 = ExtResource("6_tefeu")
-enemy_scene_2_big = ExtResource("7_tipki")
-enemy_scene_3_fast = ExtResource("8_85g3d")
+obstacle_scene_1 = ExtResource("6_tefeu")
+obstacle_scene_2_big = ExtResource("7_85g3d")
+obstacle_scene_3_fast = ExtResource("8_choun")
 metadata/_custom_type_script = "uid://cv5dfqo8lhh3p"
 
 [node name="BonusFactory" type="Node" parent="."]

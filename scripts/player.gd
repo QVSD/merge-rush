@@ -3,7 +3,6 @@ extends Area2D
 @export var speed = 500
 var screen_size
 var spriteSize = Vector2(50, 50)
-@export var bulletScene: PackedScene
 signal damage_taken
 var active_modifiers = {}
 
@@ -57,22 +56,11 @@ func apply_bonus(effect: String, duration: float) -> void:
 # - multishot : adds multiple bullets
 # - rapidshot : reduces the cooldown time of the bullet based on the current stack
 func _on_shoot_timer_timeout():
-	var bullet = bulletScene.instantiate()
-	bullet.global_position = global_position + Vector2(0, -200)
-	get_parent().add_child(bullet)
 
 	if active_modifiers.has("multishot"):
 		var count = active_modifiers["multishot"] # how many bonusses
 		for i in range(count):
 			var offset = (i + 1) * 30  # arrow distance
-			
-			var left = bulletScene.instantiate()
-			left.global_position = global_position + Vector2(-offset, -200)
-			get_parent().add_child(left)
-
-			var right = bulletScene.instantiate()
-			right.global_position = global_position + Vector2(offset, -200)
-			get_parent().add_child(right)
 			
 	if active_modifiers.has("rapidshot"):
 		var stacks = active_modifiers["rapidshot"]
@@ -116,11 +104,14 @@ func _remove_one_stack(name: String):
 
 
 func _on_health_limit_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy"): # only the enemy reduces the health bar
-		print("HealthLimit touched by enemy")
-		emit_signal("damage_taken")
-	elif area.is_in_group("bonus"): # the bonus is not our enemy
+	if area.is_in_group("bonus"): # the bonus is not our enemy
 		print("HealthLimit ignored bonus")
 		area.queue_free()
 	else:
 		print("Ignored collision with: ", area.name)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy"): # only the enemy reduces the health bar
+		print("HealthLimit touched by enemy")
+		emit_signal("damage_taken")
