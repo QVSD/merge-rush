@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctengmups6ue1"]
+[gd_scene load_steps=11 format=3 uid="uid://ctengmups6ue1"]
 
 [ext_resource type="PackedScene" uid="uid://b0j3qrcydwx1i" path="res://scenes/map.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dnhpwwttdnvyr" path="res://scripts/game_manager.gd" id="1_sugp2"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://v0s031c0pdo3" path="res://scenes/obstacle2_big.tscn" id="7_85g3d"]
 [ext_resource type="PackedScene" uid="uid://dwagkb6yivb6l" path="res://scenes/obstacle3_fast.tscn" id="8_choun"]
 [ext_resource type="Script" uid="uid://ieu44be13wcm" path="res://scripts/bonus_factory.gd" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://cypwgh5h0gnx0" path="res://scripts/coin_factory.gd" id="10_choun"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("obstacle_factory", "bonus_factory")]
 script = ExtResource("1_sugp2")
@@ -33,5 +34,8 @@ metadata/_custom_type_script = "uid://cv5dfqo8lhh3p"
 
 [node name="BonusFactory" type="Node" parent="."]
 script = ExtResource("9_85g3d")
+
+[node name="CoinFactory" type="Node" parent="."]
+script = ExtResource("10_choun")
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]

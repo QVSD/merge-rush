@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tku8a2fhajp0"
-path="res://.godot/imported/arrw(32x32).png-222a3d2675faf07d5cf2d40442aa3bb5.ctex"
+uid="uid://dbnfqyw2t03cu"
+path="res://.godot/imported/Dust Particle.png-223592399dbd75f661faafd2a8a755d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/arrw(32x32).png"
-dest_files=["res://.godot/imported/arrw(32x32).png-222a3d2675faf07d5cf2d40442aa3bb5.ctex"]
+source_file="res://images/Dust Particle.png"
+dest_files=["res://.godot/imported/Dust Particle.png-223592399dbd75f661faafd2a8a755d1.ctex"]
 
 [params]
 
