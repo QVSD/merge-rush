@@ -5,12 +5,24 @@ extends Node
 @export var obstacle_factory: ObstacleFactory
 @export var player_scene: PackedScene
 @export var bonus_factory: BonusFactory
+@export var coin_factory: CoinFactory
 var player
 var enemy_spawn_timer: Timer
 var difficulty_increase_timer: Timer
+var coin_timer: Timer
 var bonus_timer: Timer
+var score_timer: Timer
+var score: int = 0
+@onready var score_label: Label = $UI/HBoxContainer/Label
+
 
 func _ready() -> void:
+	self.score_timer = Timer.new()
+	self.score_timer.one_shot = false
+	self.add_child(self.score_timer)
+	self.score_timer.start(self.config.score_increase_based_on_time_interval)
+	self.score_timer.connect("timeout", Callable(self, "_on_score_timer_timeout"))
+	
 	self.enemy_spawn_timer = Timer.new()
 	self.enemy_spawn_timer.one_shot = false
 	self.add_child(self.enemy_spawn_timer)
@@ -33,10 +45,21 @@ func _ready() -> void:
 	bonus_timer.wait_time = config.bonus_config.spawn_interval
 	bonus_timer.connect("timeout", Callable(self, "_on_bonus_timer_timeout"))
 	bonus_timer.start()
+	
+	coin_timer = Timer.new()
+	coin_timer.one_shot = false
+	add_child(coin_timer)
+	coin_timer.wait_time = config.coin_spawn_interval
+	coin_timer.connect("timeout", Callable(self, "_on_coin_timeout"))
+	coin_timer.start()
+	
+	score_label.text = "Score: " + str(score)
+
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	self.obstacle_factory.spawn_obstacle(self.config.lanes, 
 			self.config.enemy_type_options[randi() % self.config.enemy_type_options.size()])
+
 
 # Raises difficulty of the game and updates the timers.
 # It verifies if there should be unlocked another bonus type with the respect of 'BonusConfig.unlocks'
@@ -44,6 +67,7 @@ func _on_difficulty_increase_timer_timeout() -> void:
 	self.config.increase_difficulty()
 	self.enemy_spawn_timer.wait_time = self.config.enemy_spawn_interval
 	self.difficulty_increase_timer.wait_time = self.config.difficulty_step_time
+	self.coin_timer.wait_time = self.config.coin_spawn_interval
 
 	if self.config.bonus_config != null:
 		for key in self.config.bonus_config.unlocks.keys():
@@ -53,16 +77,19 @@ func _on_difficulty_increase_timer_timeout() -> void:
 					bonus_factory.active_types.append(new_type)
 					print("Unlocked bonus: ", new_type)
 
+
 func _on_player_damage_taken() -> void:
 	print(self.config.difficulty)
 	self.config.playerLife -= 1
 	if (self.config.playerLife <= 0):
 		get_tree().quit()
 
+
 func _on_bonus_timer_timeout():
 	var bonus = bonus_factory.spawn_bonus()
 	if bonus:
 		bonus.connect("collected", Callable(self, "_on_bonus_collected"))
+
 
 # Callback invoked when the player collects a bonus
 # It is transmiting the efect towards the Player to apply the modification.
@@ -71,3 +98,22 @@ func _on_bonus_timer_timeout():
 func _on_bonus_collected(effect: String, duration: float):
 	player.get_node("Player").apply_bonus(effect, duration)
 	print("GameManager received bonus: ", effect)
+
+
+func _on_coin_timeout():
+	var coin = coin_factory.spawn_coin(self.config.lanes, 
+			self.config.enemy_type_options[randi() % self.config.enemy_type_options.size()])
+	if (coin):
+		coin.connect("score_add", Callable(self, "_on_coin_collected"))
+
+
+func _on_coin_collected(value: int):
+	score += value
+	score_label.text = "Score: " + str(score)
+	print("Score:", score)
+
+
+func _on_score_timer_timeout():
+	score += self.config.difficulty
+	score_label.text = "Score: " + str(score)
+	print("Score:", score)

@@ -13,18 +13,28 @@ extends Resource
 @export var enemy_type_options: Array[int] = [1] # 3 unique types with different frequencies based on number of appeareances
 @export var difficulty_step_time: float = 15.0 # after how much time in seconds does the game increase in difficulty
 
-@export var enemy_spawn_interval: float = 5
-@export var fastest_enemy_spawn_interval:float = 0.5
+@export var enemy_spawn_interval: float = 3
+@export var fastest_enemy_spawn_interval:float = 1
 @export var spawn_interval_decrement: float = 0.1
 
 @export var bonus_spawn_chance: float = 0.1
 @export var bonus_config: BonusConfig
+
+@export var coin_type_options: Array[int] = [1]
+@export var coin_spawn_interval: float = 3
+@export var fastest_coin_spawn_interval: float = 0.1
+@export var coin_spawn_interval_decrement: float = 0.05
+
+@export var score_increase_based_on_time_interval: float = 1
 
 
 func increase_difficulty() -> void:
 	self.difficulty = min(self.maximum_difficulty, 
 			(self.difficulty + self.difficulty_step_increase))
 	print("Current difficulty: ", self.difficulty) 
+	
+	self.coin_spawn_interval = max(self.fastest_coin_spawn_interval,
+			(self.coin_spawn_interval - self.coin_spawn_interval_decrement))
 
 	if lanes < max_lanes:
 		lanes += 1

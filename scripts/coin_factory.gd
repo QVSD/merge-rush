@@ -12,10 +12,11 @@ func _ready() -> void:
 }
 
 
-func spawn_obstacle(lanes: int, type: int) -> void:
+func spawn_coin(lanes: int, type: int) -> Coin:
 	var coin = coin_types[type].instantiate()
 	coin.position = get_random_lane_position(lanes)
 	add_child(coin)
+	return coin;
 
 
 func get_random_lane_position(lanes: int) -> Vector2:

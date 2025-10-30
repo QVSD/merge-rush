@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="FirstWithDragos"
+config/name="merge-rush"
 run/main_scene="uid://ctengmups6ue1"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -28,6 +28,7 @@ enemy=""
 player=""
 bullet=""
 bonus=""
+coin=""
 
 [input]
 
